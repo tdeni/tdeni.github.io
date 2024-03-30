@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Containerize react app</title>
+    
+    <meta name="description" content="Containerize a JavaScript React app using Docker and serve it via Nginx">
+    <meta name="keywords" content="docker, javascript, react, frontend">
+
+    <meta property="og:title" content="Containerize react app">
+    <meta property="og:description" content="Containerize a JavaScript React app using Docker and serve it via Nginx">
+    <meta property="og:image" content="">
+    <meta property="og:url" content="https://tdeni.github.io/posts/containerize-react-app">
+    <script type="application/ld+json">
+    {
+        "@context": "https://tdeni.github.io",
+        "@type": "WebPage",
+        "name": "Containerize react app",
+        "description": "Containerize a JavaScript React app using Docker and serve it via Nginx",
+        "url": "https://tdeni.github.io/posts/containerize-react-app"
+    }
+    </script>
+
+    <link rel="stylesheet" href="/assets/main.css">
+
+    <link rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@11.4.0/styles/base16/black-metal-bathory.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/dockerfile.min.js"></script>
+
+    <script>hljs.highlightAll();</script>
+
+</head>
+
+<body>
+    <div class="container">
+        
+
+
+<a href="/">index</a>
+
+<hr>
+
+<div style="margin-bottom: 2em">
+    <h1 style="margin: 0;">Containerize react app</h1>
+    <small>Date: 2024-03-30T13:31:20.882369</small>
+</div>
+
+<p>Containerize a JavaScript React app using Docker and serve it via Nginx</p>
+
+<h2>Docker image</h2>
+<pre><code class="language-Dockerfile">FROM node:alpine as builder
+
+WORKDIR /usr/app
+
+COPY package.json yarn.lock /usr/app/
+RUN yarn install
+COPY . .
+
+RUN yarn build
+
+FROM nginx:alpine
+
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=builder /usr/app/build /usr/share/nginx/html
+
+CMD [ &quot;nginx&quot;, &quot;-g&quot;, &quot;daemon off;&quot; ]
+</code></pre>
+<h2>Nginx conf</h2>
+<pre><code># nginx.conf
+server {
+  listen 80;
+
+  location / {
+    root /usr/share/nginx/html;
+    index index.html index.htm;
+    try_files $uri $uri/ /index.html =404;
+  }
+}
+</code></pre>
+
+tags: docker javascript react frontend
+
+    </div>
+</body>
+
+</html>
