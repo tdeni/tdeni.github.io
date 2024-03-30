@@ -1,14 +1,53 @@
 {% extends "base.html.j2" %}
 
+{% block head %}
+    <meta name="description" content="{{ page.description }}">
+    <meta name="keywords" content="{{ page.keywords }}">
+
+    <meta property="og:title" content="{{ page.title }}">
+    <meta property="og:description" content="{{ page.description }}">
+    <meta property="og:image" content="{{ image }}">
+    <meta property="og:url" content="{{ url }}">
+    <script type="application/ld+json">
+    {
+        "@context": "{{ base_url }}",
+        "@type": "WebPage",
+        "name": "{{ page.title }}",
+        "description": "{{ page.description }}",
+        "url": "{{ url }}"
+    }
+    </script>
+
+    <link rel="stylesheet" href="/assets/main.css">
+
+    <link rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@11.4.0/styles/base16/black-metal-bathory.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/dockerfile.min.js"></script>
+
+    <script>hljs.highlightAll();</script>
+{% endblock head %}
+
 {% block content %}
 
 {% if previous %}
-<a href="{{ previous.context.url }}"><< next</a>
+<a href="{{ previous.context.href }}"><< next</a>
 {% endif %}
 <a href="/">index</a>
 {% if next %}
-<a href="{{ next.context.url }}">previous >></a>
+<a href="{{ next.context.href }}">previous >></a>
 {% endif %}
 <hr>
+
+<div style="margin-bottom: 2em">
+    <h1 style="margin: 0;">{{ page.title }}</h1>
+    <small>Date: {{ page.published_at }}</small>
+</div>
+
+<p>{{ page.description }}</p>
+
 {{ page.content }}
+
+tags:{% for tag in page.tags %} {{ tag }}{% endfor %}
 {% endblock content %}

@@ -7,7 +7,7 @@ import markdown
 from jinja2 import Environment
 
 from tools import md
-from tools.common import base_path
+from tools.common import base_path, base_url
 
 
 def resolve_post_path(name: str, as_dir: bool) -> Path:
@@ -40,23 +40,27 @@ class Post:
 
     @lazyproperty
     def context(self):
-        content_html = markdown.markdown(self.content)
-        url = (
+        content_html = markdown.markdown(self.content, extensions=['fenced_code'])
+        href = (
             str(self.rel_path.parent)
             if self.rel_path.name == "index.md"
             else str(self.rel_path.with_suffix(""))
         )
+        href = f"/posts/{href}"
 
         return {
             "page": {
                 "title": self.meta.title,
+                "description": self.meta.description,
                 "content": content_html,
                 "tags": self.meta.tags,
+                "keywords": ", ".join(self.meta.tags),
                 "created_at": self.meta.created_at,
                 "published_at": self.meta.published_at,
                 "published": self.meta.published,
             },
-            "url": f"/posts/{url}",
+            "href": href,
+            "url": f"{base_url}{href}",
             "next": self.next if self.next else None,
             "previous": self.previous if self.previous else None,
         }
@@ -67,7 +71,7 @@ class Post:
 
     def render(self, env: Environment):
         tmpl = env.get_template(self.meta.layout)
-        render = tmpl.render(self.context)
+        render = tmpl.render(self.context, base_url=base_url)
 
         target_path = (
             base_path.joinpath("www/posts").joinpath(self.rel_path).with_suffix(".html")

@@ -1,5 +1,5 @@
 import datetime
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from io import TextIOWrapper
 
 import yaml
@@ -7,8 +7,10 @@ import yaml
 
 @dataclass
 class Header:
-    title: str | None = None
-    tags: list[str] | None = None
+    title: str = "Example"
+    description: str = ""
+    image: str = ""
+    tags: list[str] = field(default_factory=list)
     layout: str = "post.html.j2"
     created_at: str | datetime.datetime = datetime.datetime.min
     published_at: str | datetime.datetime = datetime.datetime.min
