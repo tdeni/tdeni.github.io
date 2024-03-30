@@ -1,0 +1,33 @@
+{% extends "base.html.j2" %}
+
+{% block title %}Index{% endblock title %}
+
+{% block content %}
+<div class="center">
+    <pre>
+      .____
+     /
+    /                |
+               ____  |
+                 *|  |
+                     |
+                     |
+                   __|
+                   _|
+                    |
+                ____|
+               | """
+
+    // CV: <a href="/cv">CV</a>
+    // see also <a href="/posts">posts</a>
+    </pre>
+</div>
+
+<div class="center">
+    <ul>
+        {% for post in posts %}
+        <li><a href="{{ post.url }}">{{ post.page.title }}</a> ({{ post.page.published_at }})</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock content %}

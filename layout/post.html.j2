@@ -1,0 +1,14 @@
+{% extends "base.html.j2" %}
+
+{% block content %}
+
+{% if previous %}
+<a href="{{ previous.context.url }}"><< next</a>
+{% endif %}
+<a href="/">index</a>
+{% if next %}
+<a href="{{ next.context.url }}">previous >></a>
+{% endif %}
+<hr>
+{{ page.content }}
+{% endblock content %}
