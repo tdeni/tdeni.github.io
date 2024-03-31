@@ -5,7 +5,7 @@ published: true
 published_at: '2024-03-30T13:31:20.882369'
 tags: [docker, javascript, react, frontend]
 title: Containerize react app
-description: Containerize a JavaScript React app using Docker and serve it via Nginx
+description: Containerize a JavaScript React app using Docker and serve it via Nginx.
 ---
 
 ## Docker image
