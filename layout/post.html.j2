@@ -31,23 +31,16 @@
 
 {% block content %}
 
-{% if previous %}
-<a href="{{ previous.context.href }}"><< next</a>
-{% endif %}
-<a href="/">index</a>
-{% if next %}
-<a href="{{ next.context.href }}">previous >></a>
-{% endif %}
-<hr>
+{% include "header.html.j2" %}
 
 <div style="margin-bottom: 2em">
-    <h1 style="margin: 0;">{{ page.title }}</h1>
-    <small>Date: {{ page.published_at }}</small>
+    <h1>{{ page.title }}</h1>
+    <small>date: {{ page.published_at }}</small>
 </div>
 
 <p>{{ page.description }}</p>
 
 {{ page.content }}
 
-tags:{% for tag in page.tags %} {{ tag }}{% endfor %}
+tags:{% for tag in page.tags %} <a href="/tags/?q={{ tag }}">{{ tag }}</a>{% endfor %}
 {% endblock content %}

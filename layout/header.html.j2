@@ -1,0 +1,11 @@
+<div>
+    {% if previous %}
+    <a href="{{ previous.context.href }}"><< next</a>
+    {% endif %}
+    <a href="/">index</a>
+    <a href="/posts">posts</a>
+    {% if next %}
+    <a href="{{ next.context.href }}">previous >></a>
+    {% endif %}
+</div>
+<hr>
