@@ -1,4 +1,5 @@
 import shutil
+import sys
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Self
@@ -40,7 +41,7 @@ class Post:
 
     @lazyproperty
     def context(self):
-        content_html = markdown.markdown(self.content, extensions=['fenced_code'])
+        content_html = markdown.markdown(self.content, extensions=["fenced_code"])
         href = (
             str(self.rel_path.parent)
             if self.rel_path.name == "index.md"
@@ -73,14 +74,14 @@ class Post:
         tmpl = env.get_template(self.meta.layout)
         render = tmpl.render(self.context, base_url=base_url)
 
-        target_path = (
-            base_path.joinpath("www/posts").joinpath(self.rel_path).with_suffix(".html")
-        )
+        posts_dir = base_path.joinpath("www/posts")
+        target_path = posts_dir.joinpath(self.rel_path).with_suffix(".html")
         target_dir = target_path.parent
         target_dir.mkdir(parents=True, exist_ok=True)
 
         with open(target_path, "w", encoding="utf-8") as f:
             f.write(render)
+            sys.stderr.write(f"Render post - {target_path.relative_to(posts_dir)}\n")
         for fp in self.files:
             if fp.is_dir():
                 shutil.copytree(fp, target_dir.joinpath(fp.name))
