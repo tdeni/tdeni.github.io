@@ -5,18 +5,37 @@
 {% block content %}
 <div class="center">
     <pre>
-      .____
-     /
-    /                |
-               ____  |
-                 *|  |
-                     |
-                     |
-                   __|
-                   _|
-                    |
-                ____|
-               | """
+                      .____
+                     /
+                    /                |
+                               ____  |
+                                 *|  |
+                                     |
+                                     |
+                                   __|
+                                   _|
+                                    |
+                                ____|
+                               | """
+
+    I'm Deni Tazurkaev (<a href="https://github.com/tdeni">@tdeni</a>/<a href="https://t.me/tazurkaev">@tazurkaev</a>).
+    I'm python/go developer.
+    I mainly specialize in developing server-side applications,
+    but I sometimes work on the client-side as well.
+
+    <b># about me</b>
+    age: <span id="age"></span> years old
+    languages: 
+      - chechen: native
+      - russian: native
+      - english: B1
+
+    <b># technologies</b>
+      * python     [fastapi, django/drf, sqlalchemy]
+      * go         [gin, echo, gorm]
+      * javascript [nodejs, svelte]
+      * db         [postgresql, mongodb, redis]
+      * broker     [rabbitmq]
 
     // CV: <a href="/cv">CV</a>
     // see also <a href="/posts">posts</a>
@@ -24,10 +43,28 @@
 </div>
 
 <div class="center">
-    <ul>
-        {% for post in posts %}
-        <li><a href="{{ post.href }}">{{ post.page.title }}</a> ({{ post.page.published_at }})</li>
-        {% endfor %}
-    </ul>
+    <div>
+    {% if posts %}
+        <p>posts:</p>
+        <ul>
+            {% for post in posts %}
+            <li><a href="{{ post.href }}">{{ post.page.title }}</a> ({{ post.page.published_at }})</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    </div>
 </div>
+<script>
+function getAge() {
+    let birthDate = new Date('2002-03-01');
+    let currentDate = new Date();
+    let age = currentDate.getFullYear() - birthDate.getFullYear();
+    if (currentDate.getMonth() < birthDate.getMonth() || (currentDate.getMonth() === birthDate.getMonth() && currentDate.getDate() < birthDate.getDate())) {
+        age--;
+    }
+    return age;
+}
+
+document.getElementById('age').innerText = getAge();
+</script>
 {% endblock content %}
