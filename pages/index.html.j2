@@ -5,45 +5,46 @@
 {% block content %}
 <div class="center">
     <pre>
-                      .____
-                     /
-                    /                |
-                               ____  |
-                                 *|  |
-                                     |
-                                     |
-                                   __|
-                                   _|
-                                    |
-                                ____|
-                               | """
-
-    I'm Deni Tazurkaev (<a href="https://github.com/tdeni">@tdeni</a>/<a href="https://t.me/tazurkaev">@tazurkaev</a>).
-    I'm python/go developer.
-    I mainly specialize in developing server-side applications,
-    but I sometimes work on the client-side as well.
-
-    <b># about me</b>
-    age: <span id="age"></span> years old
-    languages: 
-      - chechen: native
-      - russian: native
-      - english: B1
-
-    <b># technologies</b>
-      * python     [fastapi, django/drf, sqlalchemy]
-      * go         [gin, echo, gorm]
-      * javascript [nodejs, svelte]
-      * db         [postgresql, mongodb, redis]
-      * broker     [rabbitmq]
-
-    // CV: <a href="/cv">CV</a>
-    // see also <a href="/posts">posts</a>
+  .____
+ /
+/                |
+           ____  |
+             *|  |
+                 |
+                 |
+               __|
+               _|
+                |
+            ____|
+           | """
     </pre>
 </div>
 
 <div class="center">
     <div>
+    <pre style="display: inline-block; white-space: pre-wrap; padding: 1em;">
+I'm Deni Tazurkaev (<a href="https://github.com/tdeni">@tdeni</a>/<a href="https://t.me/tazurkaev">@tazurkaev</a>).
+I'm python/go developer.
+I mainly specialize in developing server-side applications,
+but I sometimes work on the client-side as well.
+
+<b># about me</b>
+age: <span id="age"></span> years old
+languages:
+  - chechen: native
+  - russian: native
+  - english: B1
+
+<b># technologies</b>
+  * python     [fastapi, django/drf, sqlalchemy]
+  * go         [gin, echo, gorm]
+  * javascript [nodejs, svelte]
+  * db         [postgresql, mongodb, redis]
+  * broker     [rabbitmq]
+
+// CV: <a href="/cv">CV</a>
+// see also <a href="/posts">posts</a>
+    </pre>
     {% if posts %}
         <p>posts:</p>
         <ul>
