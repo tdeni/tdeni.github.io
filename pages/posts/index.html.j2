@@ -6,6 +6,11 @@
 <div class="center">
     <div>
         {% include "header.html.j2" %}
+        <div class="emptyContainer" {% if posts %}style="display: none;"{% endif %}>
+            <h3>nothing here</h3>
+            <span><a href="/posts">go back</a></span>
+        </div>
+
         <ul>
         {% for post in posts %}
             <li>
@@ -13,7 +18,7 @@
                     <h3><a href="{{ post.href }}">{{ post.page.title }}</a></h3>
                     <p>{{ post.page.description }}</p>
                     <small>date: {{ post.page.published_at }}</small><br>
-                    <small>tags:{% for tag in post.page.tags %} <a href="/tags/?q={{ tag }}">{{ tag }}</a>{% endfor %}</small>
+                    <small class="tags">tags:{% for tag in post.page.tags %} <a href="/posts/?tag={{ tag }}">{{ tag }}</a>{% endfor %}</small>
                     <hr>
                 </div>
             </li>
@@ -21,4 +26,37 @@
         </ul>
     </div>
 </div>
+
+<script>
+
+function displayNull() {
+    const smallTags = document.querySelectorAll('small.tags');
+    if (smallTags.length == 0) {
+        const emptyElement = document.querySelector('.emptyContainer');
+
+        if (emptyElement) {
+        emptyElement.style.display = 'block';
+        }
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const tag = urlParams.get('tag');
+
+    if (!tag) {
+        return
+    }
+
+    const smallTags = document.querySelectorAll('small.tags');
+    
+    smallTags.forEach(tagElem => {
+        if (!tagElem.textContent.includes(tag)) {
+            tagElem.parentNode?.parentNode.remove()
+        }
+    });
+    displayNull();
+});
+</script>
+
 {% endblock content %}

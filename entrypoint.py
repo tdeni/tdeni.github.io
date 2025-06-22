@@ -123,8 +123,10 @@ def serve(
         if len(path_parts) > 1:
             if path_parts[1] == "www" or path_parts[1].startswith("."):
                 return
-        build(draft=draft)
-        return
+        try:
+            build(draft=draft)
+        except Exception as e:
+            sys.stderr.write(str(e))
 
     build(draft=draft)
 

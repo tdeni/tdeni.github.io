@@ -31,6 +31,7 @@
 
 {% block content %}
 
+<div>
 {% include "header.html.j2" %}
 
 <div style="margin-bottom: 2em">
@@ -42,5 +43,6 @@
 
 {{ page.content }}
 
-tags:{% for tag in page.tags %} <a href="/tags/?q={{ tag }}">{{ tag }}</a>{% endfor %}
+tags:{% for tag in page.tags %} <a href="/posts/?tag={{ tag }}">{{ tag }}</a>{% endfor %}
+</div>
 {% endblock content %}

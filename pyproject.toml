@@ -4,7 +4,6 @@ version = "0.1.0"
 description = ""
 authors = ["Deni <sha256deni@gmail.com>"]
 readme = "README.md"
-packages = [{include = "tdeni"}]
 
 [tool.poetry.dependencies]
 python = "^3.12"
